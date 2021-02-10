@@ -68,7 +68,7 @@ library(sf)
 ``` r
 library(fuzzyjoin)
 
-mx <- st_read("D:/Documents/GitHub/Tesis/shapes/mx.gpkg",
+mx <- st_read("mx.gpkg",
               quiet = T) %>% 
   rename(entidad = 1)
 
