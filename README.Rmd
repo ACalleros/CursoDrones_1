@@ -193,7 +193,7 @@ theme(axis.text = element_blank()) +
 labs(x = NULL,
      y = NULL,
      fill = 'Hectáreas',
-     title = 'Principales estados afectados reforestados')
+     title = 'Principales estados reforestados')
 
 mapa_incendios
 mapa_reforestacion
