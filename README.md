@@ -2,10 +2,11 @@ Trabajo 1
 ================
 
 He creado este repositorio para compartir datos, el proceso, su análisis
-y figuras. Siéntanse libres de analizarlo, replicarlo, corregirlo y
-mejorarlo. Una diferencia con el que compartieron es que yo tomé la
-serie de tiempo desde el primer año, me parece que es una diferencia
-significativa y es necesario tomarla en cuenta.
+y figuras. Siéntanse libres de analizarlo, replicarlo, corregirlo,
+mejorarlo o lo que ustedes quieran. Una diferencia con el que
+compartieron es que yo tomé la serie de tiempo desde el primer año, me
+pareció que es una diferencia significativa y es necesario tomarla en
+cuenta.
 
 ## Carga y preparación de datos
 
