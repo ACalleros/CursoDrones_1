@@ -1,68 +1,33 @@
-Ejercicio 1
+Untitled
 ================
 
-\`\`\`{r message=FALSE, warning=FALSE, paged.print=FALSE}
+## GitHub Documents
 
-library(tidyverse) library(DataEditR) library(magrittr)
-library(gghighlight) library(ggrepel) library(scales) library(patchwork)
-library(sf) library(fuzzyjoin)
+This is an R Markdown format used for publishing markdown documents to
+GitHub. When you click the **Knit** button all R code chunks are run and
+a markdown file (.md) suitable for publishing to GitHub is generated.
 
-mx &lt;- st\_read(“D:/Documents/GitHub/Tesis/shapes/mx.gpkg”) %&gt;%
-rename(entidad = 1)
+## Including Code
 
-mx*e**n**t**i**d**a**d* &lt;  − *a**s*.*c**h**a**r**a**c**t**e**r*(*f**c**t*<sub>*r*</sub>*e**c**o**d**e*(*m**x*entidad,
-“Coahuila” = “Coahuila De Zaragoza”, “Ciudad de México” = “Distrito
-Federal”, “México” = “Mexico”, “Michoacán” = “Michoacan”, “Nuevo León” =
-“Nuevo Leon”, “Querétaro” = “Queretaro De Arteaga” ))
+You can include R code in the document as follows:
 
-incendios &lt;- read\_csv(‘incendios mexico.csv’) reforestaciones &lt;-
-read\_csv(‘reforestacion.csv’)
+``` r
+summary(cars)
+```
 
-incendios$\`Entidad federativa\` &lt;- fct\_recode(incendios$`Entidad federativa`,
-“Ciudad de México” = “Ciudad de Méxic”, “México” = “Méxic”, “Michoacán”
-= “Michoacá”, “Nuevo León” = “Nuevo Leó”, “Querétaro” = “Querétar”,
-“Yucatán” = “Yucatá” )
+    ##      speed           dist       
+    ##  Min.   : 4.0   Min.   :  2.00  
+    ##  1st Qu.:12.0   1st Qu.: 26.00  
+    ##  Median :15.0   Median : 36.00  
+    ##  Mean   :15.4   Mean   : 42.98  
+    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
+    ##  Max.   :25.0   Max.   :120.00
 
-reforestaciones$\`Entidad federativa\` &lt;- fct\_recode(reforestaciones$`Entidad federativa`,
-“Ciudad de México” = “Ciudad de Méxic”, “México” = “Méxic”, “Michoacán”
-= “Michoacá”, “Nuevo León” = “Nuevo Leó”, “Querétaro” = “Querétar”,
-“Yucatán” = “Yucatá” )
+## Including Plots
 
-incendios &lt;- incendios %&gt;% rename(entidad = 1) %&gt;%
-filter(entidad != ‘Nacional’) %&gt;% pivot\_longer(!c(entidad),
-names\_to = ‘año’, values\_to = ‘superficie’) %&gt;% mutate(año =
-parse\_number(año)) %&gt;% group\_by(entidad) %&gt;% mutate(acumulado =
-cumsum(superficie), t = año - lag(año), cociente = superficie /
-lag(superficie), a = cociente ^ (1/t), tasa = round(a - 1, 2)) %&gt;%
-mutate(tipo = ‘incendios’, entidad = as.character(entidad)) %&gt;%
-select(!t:a)
+You can also embed plots, for example:
 
-superficie\_incendios &lt;- ggplot(incendios, aes(año, acumulado, color
-= entidad)) + geom\_line(size = 2) + geom\_point(size = 3) +
-gghighlight(max(acumulado), max\_highlight = 10, use\_direct\_label = F,
-unhighlighted\_params = list(alpha = 0.3)) +
-facet\_wrap(\~fct\_reorder(entidad, acumulado, .fun = max, .desc = T))+
-theme\_minimal() + scale\_y\_continuous(labels = comma) + labs(x =
-‘Año’, y = ‘Hectáreas’) + theme(legend.position = ‘none’)
+![](README_files/figure-gfm/pressure-1.png)<!-- -->
 
-reforestaciones &lt;- reforestaciones %&gt;% rename(entidad = 1) %&gt;%
-filter(entidad != ‘Nacional’) %&gt;% pivot\_longer(!c(entidad),
-names\_to = ‘año’, values\_to = ‘superficie’) %&gt;% mutate(año =
-parse\_number(año)) %&gt;% group\_by(entidad) %&gt;% mutate(acumulado =
-cumsum(superficie), t = año - lag(año), cociente = superficie /
-lag(superficie), a = cociente ^ (1/t), tasa = round(a - 1, 2)) %&gt;%
-mutate(tipo = ‘incendios’, entidad = as.character(entidad)) %&gt;%
-select(!t:a)
-
-superficie\_reforestaciones &lt;- ggplot(reforestaciones, aes(año,
-acumulado, color = entidad)) + geom\_line(size = 2) + geom\_point(size =
-3) + gghighlight(max(acumulado), max\_highlight = 10, use\_direct\_label
-= F, unhighlighted\_params = list(alpha = 0.3)) +
-facet\_wrap(\~fct\_reorder(entidad, acumulado, .fun = max, .desc = T))+
-theme\_minimal() + scale\_y\_continuous(labels = comma, limits = c(0,
-150000)) + labs(x = ‘Año’, y = ‘Hectáreas’) + theme(legend.position =
-‘none’)
-
-superficie\_incendios / superficie\_reforestaciones
-
-\`\`\`
+Note that the `echo = FALSE` parameter was added to the code chunk to
+prevent printing of the R code that generated the plot.
